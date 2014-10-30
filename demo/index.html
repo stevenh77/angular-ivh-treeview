@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="./ivh-treeview.css">
+  <link rel="stylesheet" href="./ivh-treeview-theme-basic.css">
+  <meta charset="utf-8">
+  <title>Treeview with Angular</title>
+</head>
+<body ng-app="demoApp">
+  <div class="container">
+    <div ng-controller="DemoCtrl as demo">
+      <h3>Treeview with Angular, checkbox support and filtering</h3>
+      <input type="text" 
+              ng-model="filterKeyword" 
+              class="form-control" 
+              placeholder="Search for a fund or group..." 
+              style="">
+      <div ivh-treeview="demo.fundAndGroupData"
+           ivh-treeview-filter="filterKeyword"
+           ivh-treeview-expand-to-depth="3"></div>
+    </div>
+  </div>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular.js"></script>
+  <script src="./ivh-treeview.min.js"></script>
+  <script>
+
+var app = angular.module('demoApp', ['ivh.treeview']);
+
+app.config(function(ivhTreeviewOptionsProvider) {
+  ivhTreeviewOptionsProvider.set({
+    idAttribute: 'id',
+    labelAttribute: 'label',
+    childrenAttribute: 'children',
+    selectedAttribute: 'selected',
+    useCheckboses: true,
+    expandToDepth: 3,
+    indeterminateAttribute: '__ivhTreeviewIndeterminate',
+    defaultSelectedState: true,
+    validate: true,
+    twistieCollapsedTpl: '<span class="glyphicon glyphicon-chevron-right"></span>',
+    twistieExpandedTpl: '<span class="glyphicon glyphicon-chevron-down"></span>',
+    twistieLeafTpl: ''
+  });
+});
+
+app.controller('DemoCtrl', function() {
+
+this.fundAndGroupData = [
+  {
+    "label":"Mexx 1", 
+    "children": [
+      {
+        "label":"Fund 1"
+      },
+      {
+        "label":"Fund 2"
+      },
+      {
+        "label":"Fund 3"
+      }
+    ]
+  }, 
+  {
+    "label":"Mexx 2", 
+    "children": [
+      {
+        "label":"Fund 4"
+      },
+      {
+        "label":"Fund 5"
+      }
+    ]
+  },
+  {
+    "label":"US Fund",
+    "children": [
+      {
+        "label":"Fund 6"
+      }
+    ]
+  },
+  {
+    "label":"XYZ Fund"
+  }
+];
+});
+
+</script>
+</body>
+</html>
